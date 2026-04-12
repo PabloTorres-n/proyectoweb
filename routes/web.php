@@ -40,3 +40,4 @@ Route::get('/configuracion', function () {
 //
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 Route::get('/historial/{id?}', [MascotaController::class, 'historial'])->name('mapa.index');
+Route::post('/mascotas/{id}/foto', [MascotaController::class, 'updateFoto'])->name('mascotas.updateFoto');

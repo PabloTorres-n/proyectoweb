@@ -2,8 +2,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="h-screen w-full bg-[#f8fafc] overflow-hidden relative text-sm font-sans tracking-tight">
-    
+<div class="max-w-[1440px] mx-auto w-full h-full">
+     
 <header class="absolute top-0 left-0 right-0 h-32 bg-white z-40 flex items-center shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border-b border-slate-100 px-10">
     
     <div class="flex items-center gap-6 pr-10 border-r border-slate-100 h-20">

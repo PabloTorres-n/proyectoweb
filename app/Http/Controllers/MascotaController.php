@@ -8,20 +8,22 @@ class MascotaController extends Controller
 {
     private $apiUrl = "https://raestreadorfijo.vercel.app/api/mascotas";
 
-    public function index()
-    {
-        // En el futuro, aquí obtendrás el ID del usuario autenticado
-        // Por ahora, supongamos que Express tiene un endpoint para listar
-        $response = Http::get($this->apiUrl);
+public function index()
+{
+    $usuarioId = session('user_id');
+    $response = Http::get($this->apiUrl . "/usuario/" . $usuarioId);
 
-        if ($response->successful()) {
-            $mascotas = $response->json();
-        } else {
-            $mascotas = [];
-        }
-
-        return view("mascotas.index", compact('mascotas'));
+    if ($response->successful()) {
+        $data = $response->json();
+        // Guardamos solo el array de mascotas, no toda la respuesta
+        $mascotas = $data['mascotas'] ?? []; 
+    } else {
+        $mascotas = [];
     }
+
+    return view("mascotas.index", compact('mascotas'));
+}
+
 
 public function store(Request $request)
 {
@@ -136,5 +138,31 @@ public function historial(Request $request, $id = null)
 
     return view('mapa
     ', compact('todasLasMascotas', 'puntos', 'mascotaActiva'));
+}
+
+public function updateFoto(Request $request, $id)
+{
+    // 1. Validar que realmente sea una imagen
+    $request->validate([
+        'foto' => 'required|image|max:4096', // Máximo 2MB
+    ]);
+
+    if ($request->hasFile('foto')) {
+        $foto = $request->file('foto');
+
+        // 2. Enviar a la API de Express
+        // Usamos attach para mandar el archivo como 'multipart/form-data'
+        $response = Http::attach(
+            'foto', 
+            file_get_contents($foto->getRealPath()), 
+            $foto->getClientOriginalName()
+        )->post($this->apiUrl ."/". $id . "/foto");
+
+        if ($response->successful()) {
+            return back()->with('success', '¡Foto actualizada correctamente!');
+        }
+    }
+
+    return back()->with('error', 'No se pudo subir la foto.');
 }
 }
