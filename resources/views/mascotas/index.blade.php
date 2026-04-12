@@ -5,10 +5,9 @@
 <div class="max-w-[1400px] mx-auto pb-32">
     <div class="flex justify-between items-center mb-10 px-4">
         <div class="flex items-center gap-4"> {{-- Añadimos este contenedor --}}
-        <img src="{{ asset('imagenes/splash.png') }}" alt="Logo" class="w-12 h-12 object-contain"> 
-        <h1 class="text-4xl font-black text-slate-800">Mis Mascotas</h1>
+<img src="{{ asset('imagenes/splash.png') }}" alt="Logo" class="w-20 h-20 object-contain">        <h1 class="text-4xl font-black text-slate-800">Mis Mascotas</h1>
     </div>
-        <h1 class="text-4xl font-black text-slate-800">Mis Mascotas</h1>
+        
         <button onclick="toggleModal('modal-registro')" class="bg-orange-500 text-white px-6 py-3 rounded-2xl font-bold shadow-lg">
     + Nueva Mascota
 </button>
@@ -189,7 +188,14 @@
                     </div>
                     <div class="bg-slate-50 p-4 rounded-3xl border border-slate-100">
                         <span class="text-[10px] font-bold text-slate-400 uppercase block">Última Conexión</span>
-                        <span class="text-sm font-bold text-slate-700">{{ \Illuminate\Support\Carbon::parse($mascota['ultimaConexion'])->diffForHumans() }}</span>
+                        <span class="text-sm font-bold text-slate-700">
+                            {{-- Después (Corregido) --}}
+@if(isset($mascota['ultimaConexion']))
+    {{ \Illuminate\Support\Carbon::parse($mascota['ultimaConexion'])->diffForHumans() }}
+@else
+    Sin registros recientes
+@endif
+                        </span>
                     </div>
                 </div>
 

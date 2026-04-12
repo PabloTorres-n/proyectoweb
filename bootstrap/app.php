@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        //$middleware->alias([
+         $middleware->alias([
+            'auth.token' => \App\Http\Middleware\CheckSersionToken::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
