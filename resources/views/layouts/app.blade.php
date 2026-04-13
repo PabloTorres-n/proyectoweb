@@ -23,7 +23,7 @@
     <div class="fixed inset-0 z-1 bg-white/10 pointer-events-none"></div>
 
     {{-- Contenido Principal --}}
-    <main class="relative z-10 p-6 mb-28 max-w-7xl mx-auto"> 
+    <main class="relative z-10 p-6 mb-28 max-w-9xl mx-auto"> 
         @yield('content')
     </main>
 
