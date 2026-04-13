@@ -1,126 +1,158 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-[1200px] mx-auto pb-32" x-data="{ tab: 'general' }">
-    <div class="mb-10 px-4">
-        <h1 class="text-4xl font-black text-slate-800">Ajustes del Sistema</h1>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        
-        <div class="lg:col-span-3 space-y-2">
-            <button @click="tab = 'general'" 
-                :class="tab === 'general' ? 'bg-orange-500 text-white shadow-lg shadow-orange-100' : 'text-slate-400 hover:bg-white'"
-                class="w-full flex items-center gap-4 p-4 rounded-2xl font-bold transition-all">
-                <i class="fas fa-cog"></i> General
-            </button>
-            
-            <button @click="tab = 'seguridad'" 
-                :class="tab === 'seguridad' ? 'bg-orange-500 text-white shadow-lg shadow-orange-100' : 'text-slate-400 hover:bg-white'"
-                class="w-full flex items-center gap-4 p-4 rounded-2xl font-bold transition-all">
-                <i class="fas fa-shield-alt"></i> Seguridad
-            </button>
-            
-            <button @click="tab = 'notificaciones'" 
-                :class="tab === 'notificaciones' ? 'bg-orange-500 text-white shadow-lg shadow-orange-100' : 'text-slate-400 hover:bg-white'"
-                class="w-full flex items-center gap-4 p-4 rounded-2xl font-bold transition-all">
-                <i class="fas fa-bell"></i> Notificaciones
-            </button>
-        </div>
-
-        <div class="lg:col-span-9">
-            
-            <div x-show="tab === 'general'" x-transition class="bg-white rounded-[40px] p-10 border border-gray-100 shadow-sm space-y-8">
-                <h3 class="text-2xl font-bold text-slate-800 mb-8 tracking-tight">Configuración General</h3>
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-8 border-b border-gray-50">
-                    <div>
-                        <h4 class="font-bold text-slate-700">Actualización en Tiempo Real</h4>
-                        <p class="text-sm text-gray-400">Frecuencia de refresco del GPS (segundos).</p>
-                    </div>
-                    <input type="number" value="30" class="bg-gray-50 border-none rounded-xl p-4 w-full md:w-32 focus:ring-2 focus:ring-orange-500">
-                </div>
-                <button class="bg-indigo-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-indigo-800 transition-all">Guardar General</button>
-            </div>
-
-         <div x-show="tab === 'seguridad'" x-transition class="bg-white rounded-[40px] p-10 border border-gray-100 shadow-sm space-y-10">
-    <div class="flex items-center gap-4 mb-2">
-        <div class="w-12 h-12 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center">
-            <i class="fas fa-lock text-xl"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-slate-800 tracking-tight">Seguridad de la Cuenta</h3>
-    </div>
-
-    <div class="bg-slate-50 rounded-[35px] p-8 border border-gray-100">
-        <h4 class="font-black text-slate-700 mb-6 uppercase text-xs tracking-widest">Cambiar Contraseña</h4>
-        
-        <form action="#" method="POST" class="space-y-6">
-            @csrf
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="space-y-2">
-                    <label class="text-[10px] font-black text-gray-400 uppercase ml-2">Contraseña Actual</label>
-                    <input type="password" name="current_password" placeholder="••••••••" 
-                        class="w-full bg-white border-none rounded-2xl p-4 focus:ring-2 focus:ring-orange-500 shadow-sm transition-all">
-                </div>
-                <div class="space-y-2">
-                    <label class="text-[10px] font-black text-gray-400 uppercase ml-2">Nueva Contraseña</label>
-                    <input type="password" name="new_password" placeholder="Mín. 8 caracteres" 
-                        class="w-full bg-white border-none rounded-2xl p-4 focus:ring-2 focus:ring-orange-500 shadow-sm transition-all">
-                </div>
-                <div class="space-y-2">
-                    <label class="text-[10px] font-black text-gray-400 uppercase ml-2">Confirmar Nueva</label>
-                    <input type="password" name="confirm_password" placeholder="Repite la contraseña" 
-                        class="w-full bg-white border-none rounded-2xl p-4 focus:ring-2 focus:ring-orange-500 shadow-sm transition-all">
-                </div>
-            </div>
-
-            <div class="flex justify-end pt-4">
-                <button type="submit" class="bg-indigo-900 text-white px-10 py-4 rounded-2xl font-black shadow-lg shadow-indigo-100 hover:bg-indigo-800 transition-all active:scale-95 flex items-center gap-2">
-                    <i class="fas fa-save"></i>
-                    Actualizar Contraseña
-                </button>
-            </div>
-        </form>
-    </div>
-
-    <div class="flex items-center justify-between p-6 bg-orange-50 rounded-[30px] border border-orange-100">
+<div class="h-screen flex flex-col overflow-hidden bg-transparent" x-data="{ tab: 'seguridad' }">
+    
+    {{-- HEADER DE AJUSTES --}}
+    <header class="flex justify-between items-center px-8 py-4 flex-shrink-0">
         <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-white text-orange-500 rounded-2xl flex items-center justify-center shadow-sm">
-                <i class="fas fa-shield-virus text-xl"></i>
+            <img src="{{ asset('imagenes/splash.png') }}" alt="Logo" class="w-16 h-16 object-contain">
+            <h1 class="text-3xl font-black tracking-tighter text-[#231B6B] leading-none">Athayala</h1>
+            <h1 class="text-4xl text-slate-300">|</h1>
+            <h1 class="text-3xl font-black text-slate-700 leading-none">Ajustes</h1>
+        </div>
+        
+        <div class="flex items-center gap-4">
+             <a href="{{ route('dashboard') }}" class="bg-slate-100 text-slate-600 px-6 py-3 rounded-2xl font-bold hover:bg-slate-200 transition-all flex items-center gap-2">
+                <i class="fas fa-arrow-left text-xs"></i> Volver
+            </a>
+        </div>
+    </header>
+
+    {{-- CONTENIDO PRINCIPAL --}}
+    <div class="flex-1 max-w-[1400px] w-full mx-auto px-6 pb-8 overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 h-full">
+            
+            {{-- COLUMNA IZQUIERDA: MENÚ --}}
+            <div class="lg:col-span-3 space-y-3">
+                <button @click="tab = 'seguridad'" 
+                    :class="tab === 'seguridad' ? 'bg-orange-500 text-white shadow-lg shadow-orange-100' : 'bg-white text-slate-400 hover:bg-slate-50'"
+                    class="w-full flex items-center gap-4 p-5 rounded-[30px] font-black text-xs uppercase tracking-widest transition-all border border-gray-50">
+                    <i class="fas fa-shield-alt text-lg"></i> Seguridad
+                </button>
+                
+                {{-- Espacio para futuras pestañas --}}
+            </div>
+
+            {{-- COLUMNA DERECHA: PANELES --}}
+            <div class="lg:col-span-9 h-full overflow-y-auto custom-scrollbar pr-2">
+                
+                <div x-show="tab === 'seguridad'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0">
+                    
+                    {{-- CARD PRINCIPAL --}}
+                    <div class="bg-white rounded-[45px] p-10 border border-gray-100 shadow-sm mb-6">
+                        <div class="flex items-center gap-5 mb-10">
+                            <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-[22px] flex items-center justify-center shadow-sm">
+                                <i class="fas fa-lock text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-slate-800 tracking-tight">Seguridad de la Cuenta</h3>
+                                <p class="text-sm text-slate-400 font-medium">Gestiona tus credenciales y protege tu acceso.</p>
+                            </div>
+                        </div>
+
+{{-- Sección de Mensajes de Éxito --}}
+@if(session('success'))
+    <div class="max-w-[1400px] mx-auto px-6 mb-6">
+        <div class="bg-emerald-50 border border-emerald-100 rounded-[25px] p-5 flex items-center justify-between shadow-sm animate-bounce-short">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-emerald-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-emerald-200">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div>
+                    <h4 class="font-black text-emerald-900 text-sm tracking-tight uppercase">¡Excelente!</h4>
+                    <p class="text-emerald-600 text-xs font-bold">{{ session('success') }}</p>
+                </div>
+            </div>
+            {{-- Botón para cerrar la alerta manualmente --}}
+            <button onclick="this.parentElement.parentElement.remove()" class="text-emerald-400 hover:text-emerald-600 transition-colors mr-2">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+@endif
+
+{{-- Sección de Mensajes de Error (Contraseña incorrecta, etc.) --}}
+@if($errors->has('password_error') || $errors->any())
+    <div class="max-w-[1400px] mx-auto px-6 mb-6">
+        <div class="bg-red-50 border border-red-100 rounded-[25px] p-5 flex items-center gap-4 shadow-sm">
+            <div class="w-10 h-10 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-red-200">
+                <i class="fas fa-exclamation-triangle"></i>
             </div>
             <div>
-                <h4 class="font-bold text-slate-800">Autenticación de dos pasos (2FA)</h4>
-                <p class="text-sm text-slate-500 font-medium">Añade un código de seguridad extra al iniciar sesión.</p>
+                <h4 class="font-black text-red-900 text-sm tracking-tight uppercase">Hubo un problema</h4>
+                <p class="text-red-600 text-xs font-bold">
+                    {{ $errors->first('password_error') ?: $errors->first() }}
+                </p>
             </div>
         </div>
-        <button class="bg-white text-orange-600 px-6 py-3 rounded-xl font-black text-xs shadow-sm hover:bg-orange-500 hover:text-white transition-all">
-            CONFIGURAR
+    </div>
+@endif
+
+<form action="{{ route('settings.password.update') }}" method="POST" class="space-y-8">
+    @csrf
+    @method('PUT')
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {{-- Input Contraseña Actual --}}
+        <div class="space-y-2">
+            <label class="text-[10px] font-black text-gray-400 uppercase ml-3 tracking-widest flex items-center gap-2">
+                <i class="fas fa-key text-[8px]"></i> Contraseña Actual
+            </label>
+            <input type="password" name="current_password" required
+                class="w-full bg-slate-50 border-2 border-transparent focus:border-orange-500 rounded-[25px] p-5 font-bold text-slate-700 outline-none transition-all shadow-inner">
+        </div>
+
+        {{-- Input Nueva Contraseña --}}
+        <div class="space-y-2">
+            <label class="text-[10px] font-black text-gray-400 uppercase ml-3 tracking-widest flex items-center gap-2">
+                <i class="fas fa-plus-circle text-[8px]"></i> Nueva Contraseña
+            </label>
+            <input type="password" name="new_password" required
+                class="w-full bg-slate-50 border-2 border-transparent focus:border-orange-500 rounded-[25px] p-5 font-bold text-slate-700 outline-none transition-all shadow-inner">
+        </div>
+
+        {{-- Confirmar Nueva --}}
+        <div class="md:col-span-2 space-y-2">
+            <label class="text-[10px] font-black text-gray-400 uppercase ml-3 tracking-widest flex items-center gap-2">
+                <i class="fas fa-check-circle text-[8px]"></i> Confirmar Nueva Contraseña
+            </label>
+            <input type="password" name="confirm_password" required
+                class="w-full bg-slate-50 border-2 border-transparent focus:border-orange-500 rounded-[25px] p-5 font-bold text-slate-700 outline-none transition-all shadow-inner">
+        </div>
+    </div>
+
+    <div class="pt-6 border-t border-gray-50 flex justify-end">
+        <button type="submit" class="bg-[#231B6B] text-white px-12 py-5 rounded-[25px] font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-indigo-100 hover:bg-indigo-800 transition-all active:scale-95 flex items-center gap-3">
+            <i class="fas fa-sync-alt"></i> Actualizar Credenciales
         </button>
     </div>
-</div>
-
-            <div x-show="tab === 'notificaciones'" x-transition class="bg-white rounded-[40px] p-10 border border-gray-100 shadow-sm space-y-8">
-                <h3 class="text-2xl font-bold text-slate-800 mb-8 tracking-tight">Preferencias de Alerta</h3>
-                <div class="space-y-6">
-                    <div class="flex items-center justify-between pb-6 border-b border-gray-50">
-                        <div>
-                            <h4 class="font-bold text-slate-700">Alertas de Batería Baja</h4>
-                            <p class="text-sm text-gray-400">Notificar cuando el collar baje del 20%.</p>
-                        </div>
-                        <input type="checkbox" checked class="w-6 h-6 text-orange-500 rounded-lg border-gray-200">
+</form>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h4 class="font-bold text-slate-700">Salida de Zona Segura</h4>
-                            <p class="text-sm text-gray-400">Enviar notificación push si la mascota escapa.</p>
+
+                    {{-- CARD INFORMATIVA --}}
+                    <div class="bg-orange-50 rounded-[35px] p-8 border border-orange-100 flex items-center gap-6">
+                        <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-orange-500 flex-shrink-0">
+                            <i class="fas fa-user-shield text-2xl"></i>
                         </div>
-                        <input type="checkbox" checked class="w-6 h-6 text-orange-500 rounded-lg border-gray-200">
+                        <div>
+                            <h4 class="font-bold text-slate-800">Tu privacidad es prioridad</h4>
+                            <p class="text-sm text-slate-500 font-medium leading-relaxed">
+                                Athayala utiliza encriptación de grado bancario para tus contraseñas. Recuerda usar combinaciones de números, letras y símbolos para mayor seguridad.
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #f1f1f1; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #e2e8f0; }
+</style>
 
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endsection

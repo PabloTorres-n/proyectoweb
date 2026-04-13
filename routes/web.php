@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MascotaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PerfilController;
 
 // --- RUTAS PÚBLICAS (No necesitan sesión) ---
 Route::get('/', function () {
@@ -31,11 +32,10 @@ Route::middleware(['auth.token'])->group(function () {
     Route::post('/mascotas/{id}/foto', [MascotaController::class, 'updateFoto'])->name('mascotas.updateFoto');
     Route::get('/historial/{id?}', [MascotaController::class, 'historial'])->name('mapa.index');
 
-    // Usuario
-    Route::get('/perfil', function () {
-        return view('cliente.perfil');
-    })->name('perfil');
-
+  Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
+    Route::put('/perfil/update', [PerfilController::class, 'update'])->name('perfil.update');
+    Route::post('/perfil/foto/{id}', [PerfilController::class, 'updateFoto'])->name('perfil.updateFoto');
+Route::put('/settings/password/update', [AuthController::class, 'updatePassword'])->name('settings.password.update');
     Route::get('/configuracion', function () {
         return view('configuracion');
     })->name('configuracion');

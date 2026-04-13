@@ -105,4 +105,39 @@ public function login(Request $request)
         session()->flush(); // Borra todo lo guardado en PHP
         return redirect()->route('registro.index');
     }
+
+  public function updatePassword(Request $request)
+{
+    $request->validate([
+        'current_password' => 'required',
+        'new_password' => 'required|min:6',
+        'confirm_password' => 'required|same:new_password',
+    ]);
+
+    // Quitamos el dd($url) para que la ejecución siga
+    $idUsuario = session('user_id');
+    $token = session('token');
+
+    try {
+        // timeout(30) ayuda si Vercel tiene un 'cold start'
+        $response = Http::timeout(30)
+            ->withToken($token)
+            ->put("{$this->apiUrl}/clientes/cambiar-password/{$idUsuario}", [
+                'current_password' => $request->current_password,
+                'new_password' => $request->new_password,
+                'confirm_password' => $request->confirm_password,
+            ]);
+
+        if ($response->successful()) {
+            return back()->with('success', '¡Contraseña actualizada con éxito!');
+        }
+
+        $errorMsg = $response->json()['msg'] ?? 'Error en el servidor de seguridad.';
+        return back()->withErrors(['password_error' => $errorMsg]);
+
+    } catch (\Exception $e) {
+        // Esto captura si Vercel está caído o la URL es errónea
+        return back()->withErrors(['password_error' => 'No se pudo conectar con el servidor: ' . $e->getMessage()]);
+    }
+}
 }
