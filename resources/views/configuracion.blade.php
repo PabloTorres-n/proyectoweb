@@ -7,7 +7,7 @@
     <header class="flex justify-between items-center px-8 py-4 flex-shrink-0">
         <div class="flex items-center gap-4">
             <img src="{{ asset('imagenes/splash.png') }}" alt="Logo" class="w-16 h-16 object-contain">
-            <h1 class="text-3xl font-black tracking-tighter text-[#231B6B] leading-none">Athayala</h1>
+            <h1 class="text-3xl font-black tracking-tighter text-[#231B6B] leading-none">ATJA’YAA’LA</h1>
             <h1 class="text-4xl text-slate-300">|</h1>
             <h1 class="text-3xl font-black text-slate-700 leading-none">Ajustes</h1>
         </div>

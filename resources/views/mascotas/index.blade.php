@@ -5,7 +5,7 @@
 <div class="max-w-[1400px] mx-auto pb-32 " >
     <div class="flex justify-between items-center mb-10 px-4">
         <div class="flex items-center gap-4"> {{-- Añadimos este contenedor --}}
-<img src="{{ asset('imagenes/splash.png') }}" alt="Logo" class="w-20 h-20 object-contain">      <h1 class="text-3xl font-black tracking-tighter text-[#231B6B] leading-none">Athayala</h1> <h1 class="text-4xl">|</h1> <h1 class="text-4xl font-black text-slate-700">Mis Mascotas</h1>
+<img src="{{ asset('imagenes/splash.png') }}" alt="Logo" class="w-20 h-20 object-contain">      <h1 class="text-3xl font-black tracking-tighter text-[#231B6B] leading-none">ATJA’YAA’LA</h1> <h1 class="text-4xl">|</h1> <h1 class="text-4xl font-black text-slate-700">Mis Mascotas</h1>
     </div>
         
         <button onclick="toggleModal('modal-registro')" class="bg-orange-500 text-white px-6 py-3 rounded-2xl font-bold shadow-lg">

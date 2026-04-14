@@ -17,7 +17,7 @@
                     Panel Administrativo
                 </h1>
                 <p class="text-gray-500 text-xl font-medium mt-2">
-                    Resumen operativo de <span class="text-indigo-600 font-bold">Athayala</span>
+                    Resumen operativo de <span class="text-indigo-600 font-bold">ATJA’YAA’LA</span>
                 </p>
             </div>
         </div>
